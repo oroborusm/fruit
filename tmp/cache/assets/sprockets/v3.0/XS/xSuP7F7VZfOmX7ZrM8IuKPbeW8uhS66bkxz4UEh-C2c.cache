@@ -1,0 +1,11 @@
+I"÷(function() {
+  $(document).on("ajax:success", "#contacto", function(e, data) {
+    return console.log(data);
+  });
+
+  $(document).on("ajax:error", "#contacto", function(ev, data, status, xhr) {
+    return console.log(data);
+  });
+
+}).call(this);
+:ET

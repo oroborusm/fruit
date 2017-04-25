@@ -1,0 +1,12 @@
+I"�(function() {
+  $(document).on("ajax:success", "#contacto", function(e, data) {
+    console.log(data);
+    return $('#contacto').html('<div class="exito"><p>Se ha enviado tu información, nos pondremos en contacto contigo lo más pronto posible.</p></div>');
+  });
+
+  $(document).on("ajax:error", "#contacto", function(ev, data, status, xhr) {
+    return console.log(data);
+  });
+
+}).call(this);
+:ET

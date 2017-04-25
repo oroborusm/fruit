@@ -1,0 +1,53 @@
+I"�(function() {
+  var offset, revealClass, targetClass, triggerAnimation, winHeight;
+
+  $(document).on("ajax:success", "#contacto", function(e, data) {
+    console.log(data);
+    return $('#contacto').html('<div class="exito"><p>Se ha enviado tu información, nos pondremos en contacto contigo lo más pronto posible.</p></div>');
+  });
+
+  $(document).on("ajax:error", "#contacto", function(ev, data, status, xhr) {
+    return console.log(data);
+  });
+
+  revealClass = '.animated';
+
+  targetClass = '.has-scroll-reveal:not(' + revealClass + ')';
+
+  offset = 50;
+
+  winHeight = $(window).height();
+
+  triggerAnimation = function(revealClass, targetClass, offset, winHeight) {
+    var trigger;
+    trigger = $(window).scrollTop() + winHeight - offset;
+    $(targetClass).each(function() {
+      var elementOffset;
+      elementOffset = $(this).offset().top;
+      if (elementOffset < trigger) {
+        $(this).addClass(revealClass.replace('.', ''));
+      }
+    });
+  };
+
+  $(window).on('resizeEnd', function() {
+    winHeight = $(window).height();
+  });
+
+  triggerAnimation(revealClass, targetClass, offset, winHeight);
+
+  $(window).on('scroll', function() {
+    triggerAnimation(revealClass, targetClass, offset, winHeight);
+  });
+
+  $(window).resize(function() {
+    if (this.resizeTO) {
+      clearTimeout(this.resizeTO);
+    }
+    this.resizeTO = setTimeout((function() {
+      $(this).trigger('resizeEnd');
+    }), 500);
+  });
+
+}).call(this);
+:ET
